@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Tools</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #232b35;
+            color: #eaebed;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+         /* Add a class for active link */
+         .navtop div a.active {
+        color: rgb(255, 0, 0); /* Highlight the text with white */
+        background-color: #2f3947; /* Optional: background color */
+        }
+        .navtop {
+            background-color: #2f3947;
+            height: 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: height 0.5s ease;
+        }
+        .navtop.open {
+            height: 60px; /* Full height when expanded */
+        }
+
+        .navtop div {
+            display: flex;
+            width: 1000px;
+            justify-content: space-between;
+        }
+
+        .navtop div h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #eaebed;
+        }
+
+        .navtop div a {
+            text-decoration: none;
+            color: #c1c4c8;
+            font-weight: bold;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navtop div a i {
+            margin-right: 8px;
+        }
+
+        .navtop div a:hover {
+            color: #eaebed;
+        }
+        .navtop div a.legal {
+            text-align: center;
+            line-height: 1.2; /* Adds spacing between lines */
+        }
+        header {
+            text-align: center;
+            margin: 100px 0 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #c1c4c8;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #c1c4c8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Slight upward shift */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Back to original position */
+            }
+        }
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 0 20px; /* Adds spacing from page sides */
+        }
+
+        .tool-card {
+            background-color: #2f3947;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none; /* Remove underline from links */
+            color: inherit; /* Inherit text color */
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            height: 120px; /* Adjusted image height for uniformity */
+        }
+
+        .tool-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #eaebed;
+        }
+
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #c1c4c8;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c1c4c8;
+        }
+
+        footer a {
+            color: #eaebed;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navtop">
+        <div>
+            <h1>Cybersecurity Tools</h1>
+            <a href="/home"><i class="fa fa-home"></i>Home</a>
+            <a class="active" href="/tools"><i class="fa fa-tools"></i>Tools</a>
+            <a href="/legal" class="legal"><i class="fa fa-gavel"></i>Legal<br>Issues</a>
+            <a href="/resources"><i class="fa fa-book"></i>Resources</a>
+            <a href="/about"><i class="fa fa-info-circle"></i>About</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Cybersecurity Tools</h1>
+        <p>Explore the essential tools used in cybersecurity and Kali Linux to protect, test, and analyze systems.</p>
+    </header>
+
+    <div class="tools-container">
+        <!-- Tool 1 -->
+        <a href="https://www.wireshark.org/" target="_blank" class="tool-card">
+           
+            <h2>Wireshark</h2>
+            <p>Wireshark is a popular network protocol analyzer that allows you to inspect network traffic in real-time.</p>
+        </a>
+    
+        <!-- Tool 2 -->
+        <a href="https://www.metasploit.com/" target="_blank" class="tool-card">
+           
+            <h2>Metasploit Framework</h2>
+            <p>A powerful penetration testing tool used to discover vulnerabilities and develop exploit code.</p>
+        </a>
+    
+        <!-- Tool 3 -->
+        <a href="https://nmap.org/" target="_blank" class="tool-card">
+           
+            <h2>Nmap</h2>
+            <p>Nmap (Network Mapper) is an open-source tool for network discovery and security auditing.</p>
+        </a>
+    
+        <!-- Tool 4 -->
+        <a href="https://portswigger.net/burp" target="_blank" class="tool-card">
+            
+            <h2>Burp Suite</h2>
+            <p>A comprehensive web vulnerability scanner for analyzing web applications and finding security flaws.</p>
+        </a>
+    
+        <!-- Tool 5 -->
+        <a href="https://sqlmap.org/" target="_blank" class="tool-card">
+            
+            <h2>SQLMap</h2>
+            <p>An automated tool for detecting and exploiting SQL injection vulnerabilities in databases.</p>
+        </a>
+    
+        <!-- Tool 6 -->
+        <a href="https://www.aircrack-ng.org/" target="_blank" class="tool-card">
+          
+            <h2>Aircrack-ng</h2>
+            <p>A suite of tools for assessing Wi-Fi network security, including password cracking and packet capturing.</p>
+        </a>
+    
+        <!-- Tool 7 -->
+        <a href="https://www.openwall.com/john/" target="_blank" class="tool-card">
+           
+            <h2>John the Ripper</h2>
+            <p>A fast password cracker for detecting weak passwords in systems.</p>
+        </a>
+    
+        <!-- Tool 8 -->
+        <a href="https://github.com/vanhauser-thc/thc-hydra" target="_blank" class="tool-card">
+           
+            <h2>Hydra</h2>
+            <p>A parallelized login cracker for systems like FTP, SSH, and Telnet, used for brute-forcing credentials.</p>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cybersecurity Awareness. Learn more at <a href="https://www.kali.org">Kali Linux</a>.</p>
+    </footer>
+    <script>
+        // Trigger dropdown animation for nav bar
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector(".navtop");
+            nav.classList.add("open");
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+    // Check if the current page is the tools page
+    if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+        const homeLink = document.querySelector(".navtop div a[href='#']"); // Select the Home link
+        homeLink.classList.add("active"); // Add the 'active' class
+    }
+});
+    </script>
+</body>
+
+</html>

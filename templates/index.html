@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login Form</title>
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: #435165;
+            margin: 0;
+        }
+
+        .login,
+        .register {
+            width: 400px;
+            background-color: #ffffff;
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+            margin: 100px auto;
+        }
+
+        .login h1,
+        .register h1 {
+            text-align: center;
+            color: brown;
+            font-size: 24px;
+            padding: 20px 0 20px 0;
+            border-bottom: 1px solid #dee0e4;
+        }
+
+        .login .links,
+        .register .links {
+            display: flex;
+            padding: 0 15px;
+        }
+
+        .login .links a,
+        .register .links a {
+            color: #adb2ba;
+            text-decoration: none;
+            display: inline-flex;
+            padding: 0 10px 10px 10px;
+            font-weight: bold;
+        }
+
+        .login .links a:hover,
+        .register .links a:hover {
+            color: brown;
+        }
+
+        .login .links a.active,
+        .register .links a.active {
+            border-bottom: 3px solid brown;
+            color: brown;
+        }
+
+        .login form,
+        .register form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .login form label,
+        .register form label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: brown;
+            color: #ffffff;
+        }
+
+        .login form input[type="password"],
+        .login form input[type="text"],
+        .login form input[type="email"],
+        .register form input[type="password"],
+        .register form input[type="text"],
+        .register form input[type="email"] {
+            width: 310px;
+            height: 50px;
+            border: 1px solid #dee0e4;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .login form input[type="submit"],
+        .register form input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: brown;
+            border: 0;
+            cursor: pointer;
+            font-weight: bold;
+            color: #ffffff;
+            transition: background-color 0.2s;
+        }
+
+        .login form input[type="submit"]:hover,
+        .register form input[type="submit"]:hover {
+            background-color: brown;
+            transition: background-color 0.2s;
+        }
+
+        .navtop {
+            background-color: #2f3947;
+            height: 60px;
+            width: 100%;
+            border: 0;
+        }
+
+        .navtop div {
+            display: flex;
+            margin: 0 auto;
+            width: 1000px;
+            height: 100%;
+        }
+
+        .navtop div h1,
+        .navtop div a {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .navtop div h1 {
+            flex: 1;
+            font-size: 24px;
+            padding: 0;
+            margin: 0;
+            color: #eaebed;
+            font-weight: normal;
+        }
+
+        .navtop div a {
+            padding: 0 20px;
+            text-decoration: none;
+            color: #c1c4c8;
+            font-weight: bold;
+        }
+
+        .navtop div a i {
+            padding: 2px 8px 0 0;
+        }
+
+        .navtop div a:hover {
+            color: #eaebed;
+        }
+
+        body.loggedin {
+            background-color: #f3f4f7;
+        }
+
+
+        .msg {
+            text-align: center;
+            color: red;
+            margin-bottom: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+    <div class="login">
+        <h1>LOGIN</h1>
+        <div class="links">
+            <a href="{{ url_for('login') }}" class="active">LOGIN</a>
+            <a href="{{ url_for('register') }}">REGISTER</a>
+        </div>
+        <form action="" method="post" onsubmit="submitForm();">
+            <label for="username">
+                <i class="fa fa-user"></i>
+            </label>
+            <input type="text" name="username" placeholder="Username" id="username" required>
+            <label for="password">
+                <i class="fa fa-lock"></i>
+            </label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <div class="msg" id="msg"></div>
+            <input type="submit" value="Login" id="submitBtn">
+        </form>
+    </div>
+
+    <script>
+        var attempts = 6;
+        var waitTime = 30; // in seconds
+        var timer;
+
+        function submitForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            // Here you should check the username and password against your authentication system.
+            // For demonstration purposes, I'm using a simple check where the correct password is 'password'.
+            if (password !== 'password') {
+                attempts--;
+                if (attempts <= 0) {
+                    document.getElementById('msg').innerHTML = "Too many login attempts. Please wait " + waitTime + " seconds before trying again.";
+                    document.getElementById('username').disabled = true;
+                    document.getElementById('password').disabled = true;
+                    document.getElementById('submitBtn').disabled = true;
+                    clearInterval(timer);
+                    timer = setInterval(updateTimer, 1000);
+                } else {
+                    document.getElementById('msg').innerHTML = " password. " + attempts + " attempts remaining.";
+                }
+            } else {
+                // If the password is correct, you can redirect the user to the desired page.
+                // For demonstration purposes, I'm just logging a message.
+                console.log("Login successful!");
+            }
+            return false; // Prevent the form from submitting
+        }
+
+        function updateTimer() {
+            waitTime--;
+            document.getElementById('msg').innerHTML = "Please wait " + waitTime + " seconds before trying again.";
+            if (waitTime <= 0) {
+                clearInterval(timer);
+                document.getElementById('msg').innerHTML = "";
+                document.getElementById('username').disabled = false;
+                document.getElementById('password').disabled = false;
+                document.getElementById('submitBtn').disabled = false;
+                attempts = 6;
+            }
+        }
+    </script>
+</body>
+
+</html>

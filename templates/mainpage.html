@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Awareness</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #232b35;
+            color: #eaebed;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        /* Add a class for active link */
+        .navtop div a.active {
+        color: rgb(255, 0, 0); /* Highlight the text with white */
+        background-color: #2f3947; /* Optional: background color */
+        }
+
+        .navtop {
+            background-color: #2f3947;
+            height: 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: height 0.5s ease;
+        }
+
+        .navtop.open {
+            height: 60px; /* Full height when expanded */
+        }
+
+        .navtop div {
+            display: flex;
+            width: 1000px;
+            justify-content: space-between;
+        }
+
+        .navtop div h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #eaebed;
+        }
+
+        .navtop div a {
+            text-decoration: none;
+            color: #c1c4c8;
+            font-weight: bold;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navtop div a i {
+            margin-right: 8px;
+        }
+
+        .navtop div a:hover {
+            color: #eaebed;
+        }
+
+        .navtop div a.legal {
+            text-align: center;
+            line-height: 1.2; /* Adds spacing between lines */
+        }
+
+        header {
+            text-align: center;
+            margin: 100px 0 20px;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 1.5s ease forwards; /* Fade-in effect for header */
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #c1c4c8;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #c1c4c8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Slight upward shift */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Back to original position */
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin-top: 20px;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 2s ease forwards; /* Fade-in effect for content */
+            animation-delay: 1.5s; /* Delay to start after the header fades in */
+        }
+
+        .card {
+            background-color: #2f3947;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: #eaebed;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #eaebed;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #c1c4c8;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c1c4c8;
+        }
+
+        footer a {
+            color: #eaebed;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navtop">
+        <div>
+            <h1>Cybersecurity Awareness</h1>
+            <a class ="active" href="/home"><i class="fa fa-home"></i>Home</a>
+            <a href="/tools"><i class="fa fa-tools"></i>Tools</a>
+            <a href="/legal" class="legal"><i class="fa fa-gavel"></i>Legal<br>Issues</a>
+            <a href="/resources"><i class="fa fa-book"></i>Resources</a>
+            <a href="/about"><i class="fa fa-info-circle"></i>About</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Welcome to Cybersecurity Awareness</h1>
+        <p>Protect your digital life with knowledge and best practices.</p>
+    </header>
+
+    <div class="content">
+        <div class="card">
+            <i class="fas fa-shield-alt"></i>
+            <h2>What is Cybersecurity?</h2>
+            <p>Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-user-secret"></i>
+            <h2>Common Threats</h2>
+            <p>Phishing, malware, ransomware, and social engineering are some of the most common online threats.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-lock"></i>
+            <h2>Best Practices</h2>
+            <p>Use strong passwords, enable multi-factor authentication, and avoid suspicious links to stay secure.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-network-wired"></i>
+            <h2>Network Security</h2>
+            <p>Secure your Wi-Fi, use VPNs, and monitor your network for any unusual activities.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cybersecurity Awareness. Learn more at <a href="https://www.cybersecurity.gov">Cybersecurity.gov</a></p>
+    </footer>
+
+    <script>
+        // Trigger dropdown animation for nav bar
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector(".navtop");
+            nav.classList.add("open");
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+    // Check if the current page is the home page
+    if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+        const homeLink = document.querySelector(".navtop div a[href='#']"); // Select the Home link
+        homeLink.classList.add("active"); // Add the 'active' class
+    }
+});
+
+    </script>
+</body>
+
+</html>
+
+

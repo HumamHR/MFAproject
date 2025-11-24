@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Issues in Cybersecurity</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #232b35;
+            color: #eaebed;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+         /* Add a class for active link */
+         .navtop div a.active {
+        color: rgb(255, 0, 0); /* Highlight the text with white */
+        background-color: #2f3947; /* Optional: background color */
+        }
+        .navtop {
+            background-color: #2f3947;
+            height: 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: height 0.5s ease;
+        }
+        .navtop.open {
+            height: 60px; /* Full height when expanded */
+        }
+
+        .navtop div {
+            display: flex;
+            width: 1000px;
+            justify-content: space-between;
+        }
+
+        .navtop div h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #eaebed;
+        }
+
+        .navtop div a {
+            text-decoration: none;
+            color: #c1c4c8;
+            font-weight: bold;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navtop div a i {
+            margin-right: 8px;
+        }
+
+        .navtop div a:hover {
+            color: #eaebed;
+        }
+        .navtop div a.legal {
+            text-align: center;
+            line-height: 1.2; /* Adds spacing between lines */
+        }
+        header {
+            text-align: center;
+            margin: 100px 0 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #c1c4c8;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #c1c4c8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px); /* Slight upward shift */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Back to original position */
+            }
+        }
+        .content {
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #2f3947;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 1.5s;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+            color: #eaebed;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: #c1c4c8;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            color: #c1c4c8;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c1c4c8;
+        }
+
+        footer a {
+            color: #eaebed;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navtop">
+        <div>
+            <h1>Legal Issues</h1>
+            <a href="/home"><i class="fa fa-home"></i>Home</a>
+            <a href="/tools"><i class="fa fa-tools"></i>Tools</a>
+            <a class="active" href="/legal" class="legal"><i class="fa fa-gavel"></i>Legal<br>Issues</a>
+            <a href="/resources"><i class="fa fa-book"></i>Resources</a>
+            <a href="/about"><i class="fa fa-info-circle"></i>About</a>
+            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i>Logout</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Legal Issues in Cybersecurity</h1>
+        <p>Understand the laws and ethics surrounding cybersecurity and ethical hacking.</p>
+    </header>
+
+    <div class="content">
+        <h2>Legal Concerns in Cybersecurity</h2>
+        <p>Cybersecurity professionals, including ethical hackers and penetration testers, must adhere to strict legal and ethical standards. Violating these rules can lead to severe consequences, including legal actions and loss of credibility.</p>
+        
+        <h2>What Ethical Hackers Should Do</h2>
+        <ul>
+            <li>Obtain proper authorization from the organization before conducting any tests.</li>
+            <li>Follow a well-defined scope of work to avoid unintended consequences.</li>
+            <li>Maintain confidentiality and protect sensitive data.</li>
+            <li>Provide detailed and accurate reports of findings to the client.</li>
+            <li>Stay updated on local and international cybersecurity laws and regulations.</li>
+        </ul>
+        
+        <h2>What Ethical Hackers Should Not Do</h2>
+        <ul>
+            <li>Never perform unauthorized scans, exploits, or attacks on systems.</li>
+            <li>Avoid causing intentional harm or disruption to systems.</li>
+            <li>Do not access data that is outside the scope of the engagement.</li>
+            <li>Refrain from using discovered vulnerabilities for personal or financial gain.</li>
+            <li>Do not share sensitive information with unauthorized parties.</li>
+        </ul>
+        
+        <h2>Relevant Laws</h2>
+        <p>Familiarize yourself with these key laws and regulations that govern cybersecurity practices:</p>
+        <ul>
+            <li><strong><a href="https://www.law.cornell.edu/uscode/text/18/1030" target="_blank" style="color: #eaebed; text-decoration: none;">Computer Fraud and Abuse Act (CFAA):</a></strong> Regulates unauthorized access to computer systems in the United States.</li>
+            <li><strong><a href="https://gdpr-info.eu/" target="_blank" style="color: #eaebed; text-decoration: none;">General Data Protection Regulation (GDPR):</a></strong> Focuses on data protection and privacy for individuals within the European Union.</li>
+            <li><strong><a href="https://www.copyright.gov/legislation/dmca.pdf" target="_blank" style="color: #eaebed; text-decoration: none;">Digital Millennium Copyright Act (DMCA):</a></strong> Protects intellectual property online.</li>
+            <li><strong><a href="https://www.congress.gov/bill/114th-congress/senate-bill/754" target="_blank" style="color: #eaebed; text-decoration: none;">Cybersecurity Information Sharing Act (CISA):</a></strong> Encourages information sharing between organizations and the government.</li>
+        </ul>
+        
+
+    <footer>
+        <p>&copy; 2025 Cybersecurity Awareness. Learn more at <a href="https://www.cybersecurity.gov">Cybersecurity.gov</a></p>
+    </footer>
+    <script>
+        // Trigger dropdown animation for nav bar
+        document.addEventListener("DOMContentLoaded", () => {
+            const nav = document.querySelector(".navtop");
+            nav.classList.add("open");
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+    // Check if the current page is the home page
+    if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+        const homeLink = document.querySelector(".navtop div a[href='#']"); // Select the Home link
+        homeLink.classList.add("active"); // Add the 'active' class
+    }
+});
+    </script>
+</body>
+
+</html>

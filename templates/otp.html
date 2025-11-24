@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f3f4f6;
+    }
+    .otp-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .otp-container h2 {
+      margin-bottom: 10px;
+    }
+    .otp-container p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .otp-input {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .otp-input input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .otp-container button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .otp-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="otp-container">
+    <h2>OTP Verification</h2>
+    <p>Please enter the OTP sent to your email</p>
+    <form id="otp-form">
+      <div class="otp-input">
+        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1" required>
+        <input type="text" maxlength="1" required>
+      </div>
+      <button type="submit">Verify</button>
+    </form>
+  </div>
+<script>
+    const inputs = document.querySelectorAll('.otp-input input');
+    var inputOTP = '{{otp_code}}';
+    var count = 3;
+    var message = "";
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && index > 0 && input.value === '') {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+
+    document.getElementById('otp-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputs = document.querySelectorAll('.otp-input input');
+      let emailOTP = '';
+      inputs.forEach(input => {
+         emailOTP += input.value; // Append each input's value to the OTP string
+      });
+      //emailOTP = parseInt(emailOTP,10);
+      if (inputOTP == emailOTP){
+        alert('OTP Verified Successfully!');
+        window.location.href = '/';
+        }
+        else{
+          if(count == 0){
+            message = "Authentication Failed! Returning to Login."
+            window.location.href = '/';
+          }
+          else{
+            message = "OTP Verified Failed!, You have " + count + " more times.";
+            count--;
+        }
+          alert(message);
+        }
+    });
+  </script>
+</body>
+</html>
