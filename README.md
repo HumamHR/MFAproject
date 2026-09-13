@@ -17,40 +17,23 @@
 
 </div>
 
----
 
-## 📑 Table of Contents
+##  Project Overview
 
-- [Overview](#-overview)
-- [How Authentication Works](#-how-authentication-works)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Prerequisites](#️-prerequisites)
-- [Getting Started](#-getting-started)
-- [Application Routes](#-application-routes)
-- [Security Concepts Demonstrated](#-security-concepts-demonstrated)
-- [Security Notes](#️-security-notes)
-- [Test Scenarios](#-test-scenarios)
-- [Roadmap](#️-roadmap)
-- [FAQ](#-faq)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Author](#-author)
+**MFAproject** is a security-focused web authentication platform designed to demonstrate the implementation of **Multi-Factor Authentication (MFA)** within a modern web application environment.
 
----
+The system applies a **defense-in-depth authentication model** by requiring users to pass multiple, independent verification stages rather than relying solely on username and password authentication.
 
-## 📖 Overview
+### Core Authentication Layers
 
-**MFAproject** is a web-based authentication system that demonstrates a **three-factor authentication (3FA)** flow instead of the typical username/password login. A user only reaches an authenticated session after passing **all three** verification layers:
+* 🔑 **Credential Authentication** — Validates the user's primary identity credentials.
+* 👤 **Facial Recognition** — Provides an additional biometric identity-verification layer.
+* 🔢 **One-Time Password (OTP)** — Introduces a time-sensitive verification factor.
+* 📝 **Security Logging** — Records authentication activity for auditing and monitoring.
+* 🌐 **Web-Based Workflow** — Integrates the authentication layers into a unified web application.
 
-1. **Something you know** — a username & password (SHA-512 hashed, checked against complexity rules)
-2. **Something you are** — live facial recognition via a webcam, using Dlib's face landmark and ResNet face-recognition models
-3. **Something you have** — a One-Time Password (OTP) sent to the user's registered email
+By combining these controls into a sequential authentication pipeline, **MFAproject** demonstrates how layered security mechanisms can strengthen identity assurance and reduce the risk of unauthorized access following credential compromise.
 
-Every login attempt (successful or failed) is written to a MySQL audit log, giving the system a basic security-monitoring layer on top of the authentication flow.
-
-> 💡 **Why this project matters:** most tutorials stop at "username + password." MFAproject is a hands-on reference for wiring together three *independent* authentication factors — knowledge, biometric, and possession — into one working Flask pipeline, plus the audit logging that a real access-control system needs.
 
 <details>
 <summary>📸 Screenshots (click to expand)</summary>
