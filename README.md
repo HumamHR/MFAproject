@@ -168,21 +168,6 @@ pip install flask flask-mysqldb mysqlclient dlib opencv-python numpy pandas pill
 ---
 
 
-## 🔄 Application Routes
-
-| Route | Method | Description |
-|---|---|---|
-| `/` | GET, POST | Login form → triggers facial verification → triggers OTP |
-| `/register` | GET, POST | Account creation → face enrollment → OTP confirmation |
-| `/home` | GET, POST | Authenticated landing page |
-| `/tools` | GET | Tools page |
-| `/resources` | GET | Resources page |
-| `/legal` | GET | Legal page |
-| `/about` | GET | About page |
-| `/logout` | GET | Clears session |
-
----
-
 ## 🔍 Security Concepts Demonstrated
 
 - Multi-Factor Authentication (MFA) design
