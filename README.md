@@ -1,311 +1,375 @@
+<div align="center">
+
 # 🔐 MFAproject
 
-<p align="center"> <img src="https://img.shields.io/badge/Security-Multi--Factor%20Authentication-0A0A0A?style=for-the-badge&logo=letsencrypt&logoColor=white"> <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-Web%20Application-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/Biometrics-Facial%20Recognition-6A5ACD?style=for-the-badge"> </p> <p align="center"> <strong>Defense-in-Depth Authentication for Web Applications</strong> </p> <p align="center"> A multi-factor authentication platform combining credential-based authentication, biometric verification, and one-time password validation. </p>
+### Defense-in-Depth Authentication for Web Applications
+
+**A Flask-based Multi-Factor Authentication system combining passwords, facial recognition, and OTP verification.**
+
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Web%20App-000000?style=for-the-badge&logo=flask&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Dlib](https://img.shields.io/badge/Dlib-Face%20Recognition-6A5ACD?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Educational%20Project-orange?style=for-the-badge)
+
+[Overview](#-overview) • [Features](#-features) • [Getting Started](#-getting-started) • [Security Notes](#️-security-notes) • [Roadmap](#️-roadmap)
+
+</div>
 
 ---
 
-## 🎯 Project Overview
+## 📑 Table of Contents
 
-**MFAproject** is a security-focused web authentication system designed to demonstrate the implementation of **Multi-Factor Authentication (MFA)** in a web application environment.
-
-Instead of relying on a single authentication mechanism, the system introduces multiple verification layers to strengthen identity assurance and reduce the security risks associated with compromised credentials.
-
-The project combines:
-
-* 🔑 **Credential Authentication**
-* 👤 **Facial Recognition**
-* 🔢 **One-Time Password (OTP) Verification**
-* 📝 **Authentication Logging**
-* 🌐 **Web-Based Authentication Workflow**
-
-The project demonstrates a practical **defense-in-depth approach to identity and access management**.
+- [Overview](#-overview)
+- [How Authentication Works](#-how-authentication-works)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#️-prerequisites)
+- [Getting Started](#-getting-started)
+- [Application Routes](#-application-routes)
+- [Security Concepts Demonstrated](#-security-concepts-demonstrated)
+- [Security Notes](#️-security-notes)
+- [Test Scenarios](#-test-scenarios)
+- [Roadmap](#️-roadmap)
+- [FAQ](#-faq)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Author](#-author)
 
 ---
 
-## 🧠 Security Concept
+## 📖 Overview
 
-Traditional authentication:
+**MFAproject** is a web-based authentication system that demonstrates a **three-factor authentication (3FA)** flow instead of the typical username/password login. A user only reaches an authenticated session after passing **all three** verification layers:
 
-```text
-Username + Password
-        │
-        ▼
-   Access Granted
+1. **Something you know** — a username & password (SHA-512 hashed, checked against complexity rules)
+2. **Something you are** — live facial recognition via a webcam, using Dlib's face landmark and ResNet face-recognition models
+3. **Something you have** — a One-Time Password (OTP) sent to the user's registered email
+
+Every login attempt (successful or failed) is written to a MySQL audit log, giving the system a basic security-monitoring layer on top of the authentication flow.
+
+> 💡 **Why this project matters:** most tutorials stop at "username + password." MFAproject is a hands-on reference for wiring together three *independent* authentication factors — knowledge, biometric, and possession — into one working Flask pipeline, plus the audit logging that a real access-control system needs.
+
+<details>
+<summary>📸 Screenshots (click to expand)</summary>
+<br>
+
+> Add screenshots or a short GIF of the login, face-verification, and OTP screens here, e.g.:
+>
+> ```markdown
+> ![Login screen](docs/screenshots/login.png)
+> ![OTP verification](docs/screenshots/otp.png)
+> ```
+
+</details>
+
+---
+
+## 🧠 How Authentication Works
+
 ```
-
-MFAproject:
-
-```text
-                    ┌─────────────────────┐
-                    │       User          │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Credentials         │
-                    │ Username + Password │
-                    └──────────┬──────────┘
-                               │
-                            Verified
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Biometric Layer     │
-                    │ Facial Recognition   │
-                    └──────────┬──────────┘
-                               │
-                            Verified
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ OTP Verification    │
-                    │ One-Time Password    │
-                    └──────────┬──────────┘
-                               │
-                            Verified
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Authenticated     │
-                    │      Session        │
-                    └─────────────────────┘
-```
-
-Each additional verification stage increases the difficulty of unauthorized access when one authentication factor is compromised.
-
----
-
-# 🛡️ Security Architecture
-
-MFAproject follows a layered authentication architecture:
-
-| Layer | Mechanism           | Security Role                   |
-| :---: | ------------------- | ------------------------------- |
-|   01  | Username / Password | Primary authentication          |
-|   02  | Facial Recognition  | Biometric identity verification |
-|   03  | OTP                 | Additional verification         |
-|   04  | Session             | Authenticated application state |
-|   05  | Logging             | Authentication auditing         |
-
-### Authentication Pipeline
-
-```text
-Request
-   │
-   ▼
-Credential Validation
-   │
-   ├── Failed ──► Authentication Denied
-   │
-   ▼
-Facial Verification
-   │
-   ├── Failed ──► Authentication Denied
-   │
-   ▼
-OTP Validation
-   │
-   ├── Failed ──► Authentication Denied
-   │
-   ▼
-Session Creation
-   │
-   ▼
-Authenticated Access
-   │
-   ▼
-Security Event Logging
+                 ┌───────────────┐
+                 │     User      │
+                 └───────┬───────┘
+                         │
+                         ▼
+        ┌───────────────────────────────┐
+        │ 1. Credentials (username/pwd) │
+        │    SHA-512 hash comparison    │
+        └───────────────┬───────────────┘
+                Invalid  │  Valid
+              ┌──────────┴──────────┐
+              ▼                     ▼
+            DENY          ┌───────────────────────┐
+                           │ 2. Facial Recognition │
+                           │    (Dlib + webcam)    │
+                           └───────────┬───────────┘
+                    No match           │ Match
+              ┌──────────────┬─────────┘
+              ▼               ▼
+            DENY   ┌────────────────────────┐
+                    │ 3. OTP sent via email  │
+                    └───────────┬────────────┘
+                Wrong code       │ Correct code
+              ┌──────────────┬───┘
+              ▼               ▼
+            DENY      ✅ SESSION CREATED
+                       (event logged to MySQL)
 ```
 
 ---
 
-# ✨ Core Capabilities
+## ✨ Features
 
-### 🔑 Credential Authentication
-
-Provides the initial authentication layer using user credentials before additional verification factors are evaluated.
-
-### 👤 Biometric Authentication
-
-Integrates facial recognition to provide an additional identity-verification layer.
-
-The facial recognition component is designed around:
-
-* Face detection
-* Facial feature extraction
-* Face comparison
-* Identity verification
-
-### 🔢 OTP Authentication
-
-Adds a time-sensitive verification step to the authentication workflow.
-
-The OTP layer provides an additional barrier against unauthorized access even when primary credentials are known.
-
-### 📝 Security Logging
-
-Authentication-related events can be recorded for auditing and monitoring purposes.
-
-This creates a foundation for future integration with:
-
-* SIEM platforms
-* Security monitoring
-* Authentication analytics
-* Incident investigation
+| Layer | Feature | Implementation |
+|---|---|---|
+| 🔑 Credentials | Registration & login | Flask + MySQL, SHA-512 password hashing |
+| 🔑 Credentials | Password policy | Enforces length ≥ 10, upper/lowercase, digit, special character |
+| 👤 Biometrics | Face enrollment | Captures & stores face samples during registration (`get_faces_from_camera_tkinter.py`) |
+| 👤 Biometrics | Face verification | Compares live webcam feed against stored face encodings (`attendance_taker.py`, `features_extraction_to_csv.py`) |
+| 🔢 OTP | Email OTP | Generates and emails a one-time code before granting access (`otp_sender.py`) |
+| 📝 Auditing | Login logging | Every login attempt (success/failure) is recorded in a `general_logs` MySQL table |
+| 🌐 Web UI | Flask templates | Login, registration, OTP, dashboard, tools, resources, legal & about pages |
 
 ---
 
-# 🧰 Technology Stack
+## 🧰 Tech Stack
 
-| Category        | Technologies                |
-| --------------- | --------------------------- |
-| Language        | Python                      |
-| Web Framework   | Flask                       |
-| Authentication  | Password + OTP + Biometrics |
-| Computer Vision | Dlib                        |
-| Frontend        | HTML / CSS                  |
-| Logging         | Python Logging              |
-| Data Processing | Python                      |
-| Development     | Git / GitHub                |
+| Category | Technology |
+|---|---|
+| Language | Python 3.12 |
+| Web framework | Flask |
+| Database | MySQL (via `flask-mysqldb`) |
+| Computer vision | Dlib, OpenCV, NumPy, Pillow |
+| Data handling | Pandas, SQLite (local attendance/face-log store) |
+| Email / OTP | `smtplib`, `pycryptodome` |
+| Frontend | HTML, CSS, Jinja2 templates |
 
 ---
 
-# 📂 Architecture
+## 📂 Project Structure
 
-```text
+```
 MFAproject/
+├── log.py                              # Main Flask app: login, register, OTP flow, routing
+├── otp_sender.py                       # Generates & emails OTP codes
 │
-├── Face-recognition-based/
-│   └── Facial recognition implementation
+├── Face-racoganintion-based - Copy/
+│   ├── attendance_taker.py             # Face_Recognizer class — live webcam face matching
+│   └── data/data_dlib/                 # Dlib landmark & ResNet face-recognition models
 │
-├── data/
-│   └── data_dlib/
-│       └── Facial recognition resources
+├── data/data_dlib/
+│   └── dlib_face_recognition_resnet_model_v1.dat
 │
-├── loginform/
-│   └── Authentication components
+├── loginform - Copy/
+│   ├── main.py                         # Earlier/simplified auth prototype (credentials only)
+│   └── static/style.css
 │
 ├── templates/
-│   └── Web application templates
-│
-├── log.py
-│   └── Authentication event logging
-│
-├── otp_sender.py
-│   └── OTP functionality
-│
-├── blue.jpg
-│   └── Project asset
+│   ├── index.html                      # Login page
+│   ├── register.html                   # Registration page
+│   ├── otp.html / otp_login.html       # OTP verification pages
+│   ├── home.html / mainpage.html       # Authenticated dashboard
+│   ├── Tools.html / resources.html
+│   ├── legal.html / About.html
+│   └── layout.html                     # Shared page layout
 │
 └── README.md
 ```
 
+> **Note:** `get_faces_from_camera_tkinter.py` and `features_extraction_to_csv.py` are imported by `log.py` for face enrollment/feature extraction but aren't shown above if not present in your checkout — make sure they sit alongside `log.py`.
+
 ---
 
-# 🔄 Authentication Workflow
+## ⚙️ Prerequisites
 
-```text
-┌──────────────┐
-│     User     │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────────┐
-│ Login Credentials│
-└────────┬─────────┘
-         │
-         ▼
-    ┌─────────┐
-    │ Valid ? │
-    └───┬─┬───┘
-       No Yes
-       │   │
-       ▼   ▼
-    DENY  Facial
-          Verification
-              │
-              ▼
-         ┌─────────┐
-         │ Valid ? │
-         └───┬─┬───┘
-            No Yes
-            │   │
-            ▼   ▼
-          DENY  OTP
-                Verification
-                    │
-                    ▼
-               ┌─────────┐
-               │ Valid ? │
-               └───┬─┬───┘
-                  No Yes
-                  │   │
-                  ▼   ▼
-                DENY  SESSION
-                      CREATION
-                         │
-                         ▼
-                    ACCESS GRANTED
+- **Python 3.12+**
+- **MySQL Server** (running locally or reachable over network)
+- A **webcam** (for facial enrollment/verification)
+- Dlib's pretrained models:
+  - `shape_predictor_68_face_landmarks.dat`
+  - `dlib_face_recognition_resnet_model_v1.dat`
+  (place both under `data/data_dlib/`)
+- An **SMTP-capable email account** for sending OTP codes
+
+### Python dependencies
+
+```bash
+pip install flask flask-mysqldb mysqlclient dlib opencv-python numpy pandas pillow pycryptodome
 ```
 
+> Building `dlib` from source requires CMake and a C++ compiler. On Windows, installing a prebuilt wheel or using `conda install -c conda-forge dlib` is usually easier.
+
 ---
 
-# 🔍 Cybersecurity Domains
+## 🚀 Getting Started
 
-This project demonstrates practical concepts across several cybersecurity areas:
+### 1. Clone the repository
 
-```text
-                    ┌──────────────────────┐
-                    │   Identity Security  │
-                    └──────────┬───────────┘
-                               │
-          ┌────────────────────┼────────────────────┐
-          │                    │                    │
-          ▼                    ▼                    ▼
-   Authentication       Access Control       Biometrics
-          │                    │                    │
-          └────────────────────┼────────────────────┘
-                               │
-                               ▼
-                     Multi-Factor Authentication
-                               │
-                               ▼
-                      Security Monitoring
+```bash
+git clone https://github.com/HumamHR/MFAproject.git
+cd MFAproject
 ```
 
-### Concepts Demonstrated
+### 2. Set up the MySQL database
 
-* Multi-Factor Authentication
-* Identity & Access Management
-* Authentication Security
-* Biometric Verification
-* OTP Authentication
-* Session Management
-* Security Logging
-* Defense in Depth
-* Access Control
-* Web Application Security
+Create a database named `LOGIN` with a `form` table (accounts) and a `general_logs` table (audit log):
+
+```sql
+CREATE DATABASE LOGIN;
+USE LOGIN;
+
+CREATE TABLE form (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE general_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(100),
+    time_of_action DATETIME,
+    username VARCHAR(100),
+    password VARCHAR(255),
+    email VARCHAR(255)
+);
+```
+
+### 3. Configure credentials
+
+`log.py` currently hardcodes the database connection and email credentials directly in the source. Before running the project, **replace these with environment variables** rather than committing real secrets:
+
+```python
+import os
+
+app.config["MYSQL_HOST"] = os.environ.get("MYSQL_HOST", "127.0.0.1")
+app.config["MYSQL_USER"] = os.environ.get("MYSQL_USER", "root")
+app.config["MYSQL_PASSWORD"] = os.environ.get("MYSQL_PASSWORD")
+app.config["MYSQL_DB"] = os.environ.get("MYSQL_DB", "LOGIN")
+app.secret_key = os.environ.get("FLASK_SECRET_KEY")
+```
+
+Do the same for the SMTP credentials used inside `otp_sender.py`. See [Security Notes](#-security-notes) below.
+
+### 4. Run the application
+
+```bash
+python log.py
+```
+
+The app starts in debug mode on `http://127.0.0.1:5000/` by default.
 
 ---
 
-# 🧪 Security Testing
+## 🔄 Application Routes
 
-The authentication workflow can be evaluated against multiple scenarios:
-
-| Test                           | Expected Result          |
-| ------------------------------ | ------------------------ |
-| Valid credentials              | Continue authentication  |
-| Invalid credentials            | Authentication rejected  |
-| Valid biometric verification   | Continue authentication  |
-| Invalid biometric verification | Authentication rejected  |
-| Valid OTP                      | Authentication completed |
-| Invalid OTP                    | Authentication rejected  |
-| Complete authentication chain  | Access granted           |
-| Authentication event           | Logged                   |
+| Route | Method | Description |
+|---|---|---|
+| `/` | GET, POST | Login form → triggers facial verification → triggers OTP |
+| `/register` | GET, POST | Account creation → face enrollment → OTP confirmation |
+| `/home` | GET, POST | Authenticated landing page |
+| `/tools` | GET | Tools page |
+| `/resources` | GET | Resources page |
+| `/legal` | GET | Legal page |
+| `/about` | GET | About page |
+| `/logout` | GET | Clears session |
 
 ---
 
+## 🔍 Security Concepts Demonstrated
 
+- Multi-Factor Authentication (MFA) design
+- Password hashing (SHA-512) & complexity enforcement
+- Biometric (facial) identity verification
+- Time-sensitive OTP verification
+- Authentication event logging / auditing
+- Defense-in-depth access control
 
+---
 
+## 🛡️ Security Notes
 
+This project is built as a learning/demo implementation of MFA concepts. Before using it beyond a local demo, consider addressing:
+
+- **Secrets management** — database password, Flask secret key, and SMTP credentials are currently hardcoded in `log.py`. Move them to environment variables or a `.env` file (excluded via `.gitignore`), and rotate any credentials that were previously committed.
+- **Password hashing** — SHA-512 alone is fast and not ideal for password storage; consider `bcrypt`, `scrypt`, or `argon2` with per-user salts.
+- **OTP delivery/storage** — verify OTPs are single-use, time-limited, and never logged in plaintext.
+- **Debug mode** — `app.run(debug=True)` should be disabled in any non-local/production environment.
+- **SQL logging** — the `general_logs` table currently stores password hashes; consider whether that data is necessary for auditing.
+
+---
+
+## 🧪 Test Scenarios
+
+| Scenario | Expected Result |
+|---|---|
+| Valid credentials | Proceeds to facial verification |
+| Invalid credentials | Login denied, attempt logged |
+| Face match | Proceeds to OTP step |
+| Face mismatch | Login denied |
+| Correct OTP | Session created, access granted |
+| Incorrect OTP | Login denied |
+| Full chain passed | Authenticated session + log entry |
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Move all secrets to environment variables
+- [ ] Replace SHA-512 with a password-hashing-specific algorithm (bcrypt/argon2)
+- [ ] Add rate limiting / lockout after repeated failed attempts
+- [ ] Add automated tests for the authentication pipeline
+- [ ] Containerize with Docker for easier setup
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><strong>Do I need a webcam to run this?</strong></summary>
+<br>
+Yes. Facial enrollment (registration) and facial verification (login) both use a live webcam feed via OpenCV/Dlib — there's currently no way to complete either flow without one.
+</details>
+
+<details>
+<summary><strong>Can I run this without MySQL?</strong></summary>
+<br>
+Not without changes. Account data and login logs are stored in MySQL via <code>flask-mysqldb</code>. Face-enrollment data is stored separately (SQLite/CSV, depending on the module). Swapping MySQL for SQLite/Postgres would require updating the queries in <code>log.py</code>.
+</details>
+
+<details>
+<summary><strong>Is this production-ready?</strong></summary>
+<br>
+No — treat it as an educational reference implementation. See <a href="#️-security-notes">Security Notes</a> for what to fix before using it anywhere beyond a local demo.
+</details>
+
+<details>
+<summary><strong>What happens if face verification fails but the password was correct?</strong></summary>
+<br>
+The login is denied and the attempt is written to <code>general_logs</code> — the user never reaches the OTP step without a successful face match.
+</details>
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m "Add amazing feature"`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+Please open an issue first for major changes, so we can discuss what you'd like to change.
+
+---
+
+## 📄 License
+
+This project is available under the MIT License. Add a `LICENSE` file to the repository root to make this explicit.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Dlib](http://dlib.net/) — facial landmark detection & face recognition models
+- [Flask](https://flask.palletsprojects.com/) — web framework
+- [OpenCV](https://opencv.org/) — computer vision / webcam capture
+
+---
+
+## 👤 Author
+
+**Humam HR**
+
+[![GitHub](https://img.shields.io/badge/GitHub-HumamHR-181717?style=flat-square&logo=github)](https://github.com/HumamHR)
+
+<div align="center">
+
+If this project helped you, consider giving it a ⭐
+
+</div>
