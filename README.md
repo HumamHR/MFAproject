@@ -52,7 +52,8 @@ By combining these controls into a sequential authentication pipeline, **MFAproj
 
 ## 🧠 How Authentication Works
 
-```                 ┌──────────────────────┐
+```
+                    ┌──────────────────────┐
                     │         User         │
                     └───────────┬──────────┘
                                 │
