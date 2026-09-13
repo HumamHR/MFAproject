@@ -52,34 +52,39 @@ By combining these controls into a sequential authentication pipeline, **MFAproj
 
 ## 🧠 How Authentication Works
 
-```
-                 ┌───────────────┐
-                 │     User      │
-                 └───────┬───────┘
-                         │
-                         ▼
-        ┌───────────────────────────────┐
-        │ 1. Credentials (username/pwd) │
-        │    SHA-512 hash comparison    │
-        └───────────────┬───────────────┘
-                Invalid  │  Valid
-              ┌──────────┴──────────┐
-              ▼                     ▼
-            DENY          ┌───────────────────────┐
-                           │ 2. Facial Recognition │
-                           │    (Dlib + webcam)    │
-                           └───────────┬───────────┘
-                    No match           │ Match
-              ┌──────────────┬─────────┘
-              ▼               ▼
-            DENY   ┌────────────────────────┐
-                    │ 3. OTP sent via email  │
-                    └───────────┬────────────┘
-                Wrong code       │ Correct code
-              ┌──────────────┬───┘
-              ▼               ▼
-            DENY      ✅ SESSION CREATED
-                       (event logged to MySQL)
+```                 ┌──────────────────────┐
+                    │         User         │
+                    └───────────┬──────────┘
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │     Credentials      │
+                    │  Username + Password │
+                    └───────────┬──────────┘
+                                │
+                             Verified
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │    Biometric Layer   │
+                    │   Facial Recognition │
+                    └───────────┬──────────┘
+                                │
+                             Verified
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │    OTP Verification  │
+                    │   One-Time Password  │
+                    └───────────┬──────────┘
+                                │
+                             Verified
+                                │
+                                ▼
+                    ┌──────────────────────┐
+                    │     Authenticated    │
+                    │        Session       │
+                    └──────────────────────┘
 ```
 
 ---
