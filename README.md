@@ -1,12 +1,7 @@
 # 🔐 MFAproject
 
-<p align="center"> <img src="https://img.shields.io/badge/Security-Multi--Factor%20Authentication-0A0A0A?style=for-the-badge&logo=shield&logoColor=white"> <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-Web%20Application-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/Biometrics-Facial%20Recognition-6A5ACD?style=for-the-badge"> <img src="https://img.shields.io/badge/OTP-Time--Based%20Verification-FFB000?style=for-the-badge"> </p>
+<p align="center"> <img src="https://img.shields.io/badge/Security-Multi--Factor%20Authentication-0A0A0A?style=for-the-badge&logo=letsencrypt&logoColor=white"> <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-Web%20Application-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/Biometrics-Facial%20Recognition-6A5ACD?style=for-the-badge"> </p> <p align="center"> <strong>Defense-in-Depth Authentication for Web Applications</strong> </p> <p align="center"> A multi-factor authentication platform combining credential-based authentication, biometric verification, and one-time password validation. </p>
 
-<h3 align="center">Defense-in-Depth Authentication for Web Applications</h3>
-
-<p align="center"> A security-focused web authentication platform that combines <strong>credentials, biometric verification, and one-time passwords</strong> into a layered authentication workflow. </p>
-
-<p align="center"> <a href="#-overview">Overview</a> • <a href="#-architecture">Architecture</a> • <a href="#-security-model">Security Model</a> • <a href="#-features">Features</a> • <a href="#-testing">Testing</a> • <a href="#-roadmap">Roadmap</a> </p>
 ---
 
 ## 🎯 Project Overview
