@@ -332,19 +332,6 @@ No — treat it as an educational reference implementation. See <a href="#️-se
 The login is denied and the attempt is written to <code>general_logs</code> — the user never reaches the OTP step without a successful face match.
 </details>
 
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m "Add amazing feature"`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-Please open an issue first for major changes, so we can discuss what you'd like to change.
 
 ---
 
