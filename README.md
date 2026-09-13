@@ -1,21 +1,12 @@
 # 🔐 MFAproject
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Security-Multi--Factor%20Authentication-0A0A0A?style=for-the-badge&logo=letsencrypt&logoColor=white">
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/Flask-Web%20Application-000000?style=for-the-badge&logo=flask&logoColor=white">
-  <img src="https://img.shields.io/badge/Biometrics-Facial%20Recognition-6A5ACD?style=for-the-badge">
-</p>
+<p align="center"> <img src="https://img.shields.io/badge/Security-Multi--Factor%20Authentication-0A0A0A?style=for-the-badge&logo=shield&logoColor=white"> <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/Flask-Web%20Application-000000?style=for-the-badge&logo=flask&logoColor=white"> <img src="https://img.shields.io/badge/Biometrics-Facial%20Recognition-6A5ACD?style=for-the-badge"> <img src="https://img.shields.io/badge/OTP-Time--Based%20Verification-FFB000?style=for-the-badge"> </p>
 
-<p align="center">
-  <strong>Defense-in-Depth Authentication for Web Applications</strong>
-</p>
+<h3 align="center">Defense-in-Depth Authentication for Web Applications</h3>
 
-<p align="center">
-  A multi-factor authentication platform combining credential-based authentication,
-  biometric verification, and one-time password validation.
-</p>
+<p align="center"> A security-focused web authentication platform that combines <strong>credentials, biometric verification, and one-time passwords</strong> into a layered authentication workflow. </p>
 
+<p align="center"> <a href="#-overview">Overview</a> • <a href="#-architecture">Architecture</a> • <a href="#-security-model">Security Model</a> • <a href="#-features">Features</a> • <a href="#-testing">Testing</a> • <a href="#-roadmap">Roadmap</a> </p>
 ---
 
 ## 🎯 Project Overview
@@ -319,81 +310,7 @@ The authentication workflow can be evaluated against multiple scenarios:
 
 ---
 
-# 🚀 Installation
 
-## 1. Clone the Repository
 
-```bash
-git clone https://github.com/HumamHR/MFAproject.git
-cd MFAproject
-```
 
-## 2. Create a Virtual Environment
 
-### Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
-## 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-> Ensure that the repository contains a maintained `requirements.txt` before publishing the final version.
-
-## 4. Configure the Application
-
-Configure the required authentication and application settings according to the project configuration.
-
-**Do not commit passwords, API keys, OTP secrets, or other credentials to GitHub.**
-
-## 5. Start the Application
-
-```bash
-python app.py
-```
-
-Then open:
-
-```text
-http://127.0.0.1:5000
-```
-
-> Update the startup command if the application's actual entry point uses a different filename.
-
----
-
-# 🔐 Security Considerations
-
-For production deployment, the following controls should be implemented or strengthened:
-
-* Password hashing using a modern password-hashing algorithm
-* Secure session configuration
-* HTTPS/TLS
-* OTP expiration
-* OTP replay protection
-* Authentication rate limiting
-* Brute-force protection
-* Account lockout controls
-* CSRF protection
-* Secure cookie attributes
-* Input validation
-* Authentication event monitoring
-* Secret management
-* Role-Based Access Control
-* Secure biometric data handling
-
----
-
-# 📈 Future Roadma
