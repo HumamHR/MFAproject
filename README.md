@@ -13,7 +13,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Educational%20Project-orange?style=for-the-badge)
 
-[Overview](#-overview) • [Features](#-features) • [Getting Started](#-getting-started) • [Security Notes](#️-security-notes) • [Roadmap](#️-roadmap)
+ 
 
 </div>
 
@@ -167,65 +167,6 @@ pip install flask flask-mysqldb mysqlclient dlib opencv-python numpy pandas pill
 
 ---
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/HumamHR/MFAproject.git
-cd MFAproject
-```
-
-### 2. Set up the MySQL database
-
-Create a database named `LOGIN` with a `form` table (accounts) and a `general_logs` table (audit log):
-
-```sql
-CREATE DATABASE LOGIN;
-USE LOGIN;
-
-CREATE TABLE form (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE general_logs (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    action VARCHAR(100),
-    time_of_action DATETIME,
-    username VARCHAR(100),
-    password VARCHAR(255),
-    email VARCHAR(255)
-);
-```
-
-### 3. Configure credentials
-
-`log.py` currently hardcodes the database connection and email credentials directly in the source. Before running the project, **replace these with environment variables** rather than committing real secrets:
-
-```python
-import os
-
-app.config["MYSQL_HOST"] = os.environ.get("MYSQL_HOST", "127.0.0.1")
-app.config["MYSQL_USER"] = os.environ.get("MYSQL_USER", "root")
-app.config["MYSQL_PASSWORD"] = os.environ.get("MYSQL_PASSWORD")
-app.config["MYSQL_DB"] = os.environ.get("MYSQL_DB", "LOGIN")
-app.secret_key = os.environ.get("FLASK_SECRET_KEY")
-```
-
-Do the same for the SMTP credentials used inside `otp_sender.py`. See [Security Notes](#-security-notes) below.
-
-### 4. Run the application
-
-```bash
-python log.py
-```
-
-The app starts in debug mode on `http://127.0.0.1:5000/` by default.
-
----
 
 ## 🔄 Application Routes
 
